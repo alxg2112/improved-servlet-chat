@@ -1,0 +1,66 @@
+<html>
+<head>
+    <title>Chat Room</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+        // Get xhr object.
+        function getXmlHttp(){
+            var xmlhttp;
+            try {
+                xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (e) {
+                try {
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (E) {
+                    xmlhttp = false;
+                }
+            }
+            if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
+                xmlhttp = new XMLHttpRequest();
+            }
+            return xmlhttp;
+        }
+
+        // Get new messages from server.
+        function update() {
+            var xmlhttp = getXmlHttp();
+            xmlhttp.open('GET', 'request', true);
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4) {
+                    if (xmlhttp.status == 200) {
+                        $("#messageDiv").append(xmlhttp.responseText);
+                        update();
+                    }
+                }
+            };
+            xmlhttp.send({
+                from: document.getElementById('userId').value
+            });
+        }
+
+        // Submit message to server.
+        $(document).on("click", "#sendButton", function() {
+            if (document.getElementById('message').value != '' && document.getElementById('userId').value != '') {
+                $.get("send", {
+                    from: document.getElementById('userId').value,
+                    message: document.getElementById('message').value
+                });
+                document.getElementById('message').value = '';
+                document.getElementById('userId').readOnly = true;
+            }
+        });
+
+        // Send request for new messages on window startup.
+        $(update);
+    </script>
+</head>
+<body>
+<div>Hello. Please type your name and message below and press "Send" to broadcast it.</div>
+<div>Name:</div>
+<input id="userId" type="text" value=""/>
+<div>Message:</div>
+<input id="message" type="text" value=""/>
+<input id="sendButton" type="button" value="Send"/>
+<div id="messageDiv"></div>
+</body>
+</html>
