@@ -1,5 +1,9 @@
 package entities;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Alexander on 07.07.2016.
  */
@@ -14,6 +18,9 @@ public class Message {
 
     @Override
     public String toString() {
-        return from + ":\t" + text;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        String dateString = dateFormat.format(date);
+        return from + " (" + dateString + ")" + ":\t" + text;
     }
 }

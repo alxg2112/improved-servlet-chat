@@ -21,8 +21,9 @@ public class RequestServlet extends HttpServlet {
         String responseText;
         userRequest = new Request(from);
         Repository.submitRequest(userRequest);
-        responseText = userRequest.getResponse().toString() + "<br>";
-        response.getWriter().write(responseText);
+//        responseText = userRequest.getResponse().toString() + "<br>";
+//        response.getWriter().write(responseText);
+        userRequest.sendResponse(response);
 
     }
 }
