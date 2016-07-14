@@ -3,6 +3,7 @@ package servlets;
 import entities.Request;
 import repository.Repository;
 
+import javax.servlet.AsyncContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,18 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by Alexander on 07.07.2016.
+ * Servlet that gets request from the client, submits it to the repository and sends response.
  */
-@WebServlet(name = "RequestServlet")
+@WebServlet(name = "RequestServlet", asyncSupported = true)
 public class RequestServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        AsyncContext asyncContext = request.startAsync();
+        asyncContext.setTimeout(900000000);
         String from = request.getSession().getId();
         Request userRequest;
-        String responseText;
         userRequest = new Request(from);
         Repository.submitRequest(userRequest);
-//        responseText = userRequest.getResponse().toString() + "<br>";
-//        response.getWriter().write(responseText);
-        userRequest.dispatchResponse(response);
+        userRequest.dispatchResponse(asyncContext, response);
     }
 }
