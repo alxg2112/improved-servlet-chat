@@ -34,7 +34,7 @@ public class Repository {
                     }
                 }
 
-                pendingRequests.clear();
+//                pendingRequests.clear();
 
                 for (Request request : currentRequests) {
                     request.setResponse(currentMessage);
@@ -48,6 +48,11 @@ public class Repository {
     }
 
     static public void submitRequest(Request request) {
+//        for (Request req : pendingRequests) {
+//            if (req.getSender().equals(request.getSender())) {
+//                return;
+//            }
+//        }
         pendingRequests.add(request);
     }
 

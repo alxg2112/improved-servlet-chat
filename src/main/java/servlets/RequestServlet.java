@@ -16,14 +16,13 @@ import java.io.IOException;
 @WebServlet(name = "RequestServlet")
 public class RequestServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String from = request.getParameter("from");
+        String from = request.getSession().getId();
         Request userRequest;
         String responseText;
         userRequest = new Request(from);
         Repository.submitRequest(userRequest);
 //        responseText = userRequest.getResponse().toString() + "<br>";
 //        response.getWriter().write(responseText);
-        userRequest.sendResponse(response);
-
+        userRequest.dispatchResponse(response);
     }
 }

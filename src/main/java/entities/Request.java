@@ -22,7 +22,11 @@ public class Request {
         return responseMessage;
     }
 
-    public void sendResponse(final HttpServletResponse response) {
+    public String getSender() {
+        return sender;
+    }
+
+    public void dispatchResponse(final HttpServletResponse response) {
 //        Message responseMessage = null;
 //        try {
 //            responseMessage = message.take();
