@@ -22,7 +22,7 @@ public class Main {
         context.addServlet(RequestServlet.class, "/request");
         // Add default servlet
         context.addServlet(SendMessageServlet.class, "/send");
-        context.setWelcomeFiles(new String[]{"resources/index.html"});
+        context.setWelcomeFiles(new String[]{"index.html"});
 
         server.start();
         server.join();
