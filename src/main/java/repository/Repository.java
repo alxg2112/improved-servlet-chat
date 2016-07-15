@@ -64,10 +64,10 @@ public class Repository {
         }
     };
 
-//    // Static initializer that starts request handling thread
-//    static {
-//        requestHandler.start();
-//    }
+    // Static initializer that starts request handling thread
+    static {
+        requestHandler.start();
+    }
 
     /**
      * Method that submits new user request to the repository.
@@ -76,7 +76,8 @@ public class Repository {
      */
     static public void submitRequest(Request request) {
         pendingRequests.add(request);
-        System.out.println("Submitted request to the repository. Current number of requests: " +
+        System.out.println("Submitted request from sender [" + request.getSender() +
+                "] to the repository. Current number of requests: " +
                 pendingRequests.size());
     }
 
@@ -89,6 +90,5 @@ public class Repository {
         pendingMessages.add(message);
         System.out.println("Submitted message to the repository. Current number of messages: " +
                 pendingMessages.size());
-        requestHandler.start();
     }
 }
