@@ -70,7 +70,7 @@ public class Repository {
      */
     static private Thread jmsMessageConsumer = new Thread(new ActiveMQConsumer());
 
-    // Static initializer that starts request handling thread
+    // Static initializer that starts request handling and consumer threads
     static {
         requestHandler.start();
         jmsMessageConsumer.start();
