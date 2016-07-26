@@ -33,8 +33,5 @@ public class Main {
 
         server.start();
         server.join();
-        System.out.println("Press 'Enter' to shut down the server...");
-        System.in.read();
-        server.stop();
     }
 }

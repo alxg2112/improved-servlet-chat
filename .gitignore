@@ -1,7 +1,4 @@
 .idea/
 *.iml
 *.iws
-ServletWebChat.iml
-out/
-src/test/
 target/

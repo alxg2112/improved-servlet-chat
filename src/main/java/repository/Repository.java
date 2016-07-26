@@ -2,6 +2,7 @@ package repository;
 
 import entities.Message;
 import entities.Request;
+import jms.ActiveMQConsumer;
 
 import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
@@ -64,9 +65,15 @@ public class Repository {
         }
     };
 
+    /**
+     * Thread that consumes messages from ActiveMQ queue and submits it to the repository.
+     */
+    static private Thread jmsMessageConsumer = new Thread(new ActiveMQConsumer());
+
     // Static initializer that starts request handling thread
     static {
         requestHandler.start();
+        jmsMessageConsumer.start();
     }
 
     /**
